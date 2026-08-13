@@ -4,6 +4,7 @@ import { ToastProvider } from './contexto/ContextoNotificacoes.jsx';
 import RotaProtegida from './componentes/RotaProtegida.jsx';
 
 import Inicio from './paginas/Inicio.jsx';
+import EntrarCliente from './paginas/EntrarCliente.jsx';
 
 import PainelCliente from './paginas/cliente/PainelCliente.jsx';
 import Fidelizacao from './paginas/cliente/Fidelizacao.jsx';
@@ -17,6 +18,7 @@ import Clientes from './paginas/dono/Clientes.jsx';
 import CheckIn from './paginas/dono/CheckIn.jsx';
 import Relatorios from './paginas/dono/Relatorios.jsx';
 import Configuracoes from './paginas/dono/Configuracoes.jsx';
+import QrCodeAcesso from './paginas/dono/QrCodeAcesso.jsx';
 
 export default function Aplicativo() {
   return (
@@ -25,6 +27,7 @@ export default function Aplicativo() {
         <ToastProvider>
           <Routes>
             <Route path="/" element={<Inicio />} />
+            <Route path="/entrar-cliente" element={<EntrarCliente />} />
 
             <Route path="/cliente" element={<RotaProtegida role="cliente" />}>
               <Route index element={<PainelCliente />} />
@@ -41,6 +44,7 @@ export default function Aplicativo() {
               <Route path="checkin" element={<CheckIn />} />
               <Route path="relatorios" element={<Relatorios />} />
               <Route path="configuracoes" element={<Configuracoes />} />
+              <Route path="qrcode" element={<QrCodeAcesso />} />
             </Route>
           </Routes>
         </ToastProvider>

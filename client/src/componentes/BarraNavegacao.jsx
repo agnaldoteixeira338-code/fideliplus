@@ -14,6 +14,7 @@ const ABAS_DONO = [
   { to: '/dono/regras', label: 'Fidelização' },
   { to: '/dono/clientes', label: 'Clientes' },
   { to: '/dono/checkin', label: 'Check-in' },
+  { to: '/dono/qrcode', label: 'QR Code' },
   { to: '/dono/relatorios', label: 'Relatórios' },
   { to: '/dono/configuracoes', label: 'Configurações' },
 ];
