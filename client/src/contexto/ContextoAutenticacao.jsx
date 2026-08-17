@@ -22,8 +22,26 @@ export function AuthProvider({ children }) {
       .finally(() => setLoading(false));
   }, []);
 
-  async function loginAs(role) {
-    const { token, user: loggedUser } = await api.post('/auth/demo-login', { role });
+  async function login(email, senha) {
+    const { token, user: loggedUser } = await api.post('/auth/login', { email, senha });
+    localStorage.setItem('fideli_token', token);
+    setUser(loggedUser);
+    return loggedUser;
+  }
+
+  async function register(dados) {
+    const { token, user: loggedUser } = await api.post('/auth/register', dados);
+    localStorage.setItem('fideli_token', token);
+    setUser(loggedUser);
+    return loggedUser;
+  }
+
+  async function redefinirSenha(resetToken, novaSenha, confirmarNovaSenha) {
+    const { token, user: loggedUser } = await api.post('/auth/recuperar-senha/redefinir', {
+      resetToken,
+      novaSenha,
+      confirmarNovaSenha,
+    });
     localStorage.setItem('fideli_token', token);
     setUser(loggedUser);
     return loggedUser;
@@ -35,7 +53,9 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, loginAs, logout }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, loading, login, register, redefinirSenha, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 

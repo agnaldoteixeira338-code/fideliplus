@@ -1,6 +1,6 @@
-# FIDELI+ (ambiente de testes)
+# FIDELI+
 
-Sistema de fidelização de clientes com módulos de Fidelização, Favoritos e Saúde. Esta é a primeira versão do projeto: um esqueleto completo, com back-end e front-end funcionando de ponta a ponta, banco de dados real (Neon Postgres) e login simplificado para testes (sem senha).
+Sistema de fidelização de clientes com módulos de Fidelização, Favoritos e Saúde. Back-end e front-end funcionando de ponta a ponta, banco de dados real (Neon Postgres) e autenticação real (cadastro, login e recuperação de senha).
 
 ## Estrutura
 
@@ -43,9 +43,20 @@ npm run dev
 
 O front sobe em `http://localhost:5173` (com proxy para a API).
 
-## Login de testes
+## Autenticação
 
-Como este é um ambiente de demonstração, não há senha: a tela inicial oferece dois botões — **Entrar como Cliente** e **Entrar como Dono** — que autenticam automaticamente nos usuários demo semeados pela migration.
+O sistema tem cadastro, login e recuperação de senha reais:
+
+- **Cadastro** (`/cadastro`): CPF, celular, e-mail, senha e confirmação de senha, escolhendo o tipo de conta (Cliente ou Dono). Ao cadastrar um Dono, um estabelecimento placeholder é criado automaticamente (edite os dados dele em Configurações).
+- **Login** (`/`): e-mail e senha.
+- **Recuperação de senha** (`/recuperar-senha`): pede e-mail + celular cadastrados; se baterem, libera na hora a definição de uma nova senha (não há envio real de e-mail/SMS nesta versão).
+
+Contas de teste já semeadas pela migration (senha `123456` para as duas):
+
+| Papel   | E-mail                    |
+|---------|----------------------------|
+| Cliente | demo.cliente@fideli.com   |
+| Dono    | demo.dono@fideli.com      |
 
 Use o CPF do cliente demo (`000.000.000-00`) na tela de Check-in (visão do Dono) para testar o fluxo de visitas e descontos.
 
@@ -58,6 +69,6 @@ Use o CPF do cliente demo (`000.000.000-00`) na tela de Check-in (visão do Dono
 
 ## Próximos passos sugeridos
 
-- Trocar o login demo por autenticação real (cadastro com CPF/Gmail/senha, já com `password_hash` na tabela `users`).
 - Integrar Google Maps API e Firebase Cloud Messaging.
 - Adicionar exportação em Excel nos relatórios.
+- Enviar e-mail/SMS de verdade na recuperação de senha.

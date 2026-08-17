@@ -1,23 +1,26 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexto/ContextoAutenticacao.jsx';
 import { useToast } from '../contexto/ContextoNotificacoes.jsx';
 
 export default function Inicio() {
-  const { loginAs } = useAuth();
+  const { login } = useAuth();
   const { showToast } = useToast();
   const navigate = useNavigate();
-  const [loadingRole, setLoadingRole] = useState(null);
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [entrando, setEntrando] = useState(false);
 
-  async function handleLogin(role) {
-    setLoadingRole(role);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setEntrando(true);
     try {
-      const user = await loginAs(role);
+      const user = await login(email, senha);
       navigate(user.role === 'dono' ? '/dono' : '/cliente');
     } catch (err) {
       showToast(err.message, 'error');
     } finally {
-      setLoadingRole(null);
+      setEntrando(false);
     }
   }
 
@@ -28,14 +31,37 @@ export default function Inicio() {
         <div className="tagline">Fidelização inteligente para o seu negócio</div>
       </div>
       <div className="home-card">
-        <h2>Acesso de testes</h2>
-        <p>Ambiente de demonstração — escolha como deseja entrar, sem necessidade de senha.</p>
-        <button className="btn btn-primary btn-block" disabled={!!loadingRole} onClick={() => handleLogin('cliente')}>
-          {loadingRole === 'cliente' ? 'Entrando...' : 'Entrar como Cliente'}
-        </button>
-        <button className="btn btn-secondary btn-block" disabled={!!loadingRole} onClick={() => handleLogin('dono')}>
-          {loadingRole === 'dono' ? 'Entrando...' : 'Entrar com Empresa'}
-        </button>
+        <h2>Entrar</h2>
+        <p>Acesse com seu e-mail e senha.</p>
+        <form onSubmit={handleSubmit}>
+          <div className="field">
+            <label>E-mail</label>
+            <input
+              type="email"
+              className="input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="field">
+            <label>Senha</label>
+            <input
+              type="password"
+              className="input"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              required
+            />
+          </div>
+          <button className="btn btn-primary btn-block" disabled={entrando}>
+            {entrando ? 'Entrando...' : 'Entrar'}
+          </button>
+        </form>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 16, fontSize: 13 }}>
+          <Link to="/recuperar-senha">Esqueci minha senha</Link>
+          <Link to="/cadastro">Criar conta</Link>
+        </div>
       </div>
     </div>
   );

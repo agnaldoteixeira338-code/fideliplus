@@ -4,7 +4,8 @@ import { ToastProvider } from './contexto/ContextoNotificacoes.jsx';
 import RotaProtegida from './componentes/RotaProtegida.jsx';
 
 import Inicio from './paginas/Inicio.jsx';
-import EntrarCliente from './paginas/EntrarCliente.jsx';
+import Cadastro from './paginas/Cadastro.jsx';
+import RecuperarSenha from './paginas/RecuperarSenha.jsx';
 
 import PainelCliente from './paginas/cliente/PainelCliente.jsx';
 import Fidelizacao from './paginas/cliente/Fidelizacao.jsx';
@@ -27,7 +28,8 @@ export default function Aplicativo() {
         <ToastProvider>
           <Routes>
             <Route path="/" element={<Inicio />} />
-            <Route path="/entrar-cliente" element={<EntrarCliente />} />
+            <Route path="/cadastro" element={<Cadastro />} />
+            <Route path="/recuperar-senha" element={<RecuperarSenha />} />
 
             <Route path="/cliente" element={<RotaProtegida role="cliente" />}>
               <Route index element={<PainelCliente />} />

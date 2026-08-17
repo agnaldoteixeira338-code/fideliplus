@@ -1,14 +1,14 @@
 import { QRCodeSVG } from 'qrcode.react';
 
 export default function QrCodeAcesso() {
-  const url = `${window.location.origin}/entrar-cliente`;
+  const url = window.location.origin;
 
   return (
     <div className="page">
       <h1>QR Code de Acesso Rápido</h1>
       <p className="subtitle">
-        Mostre esse QR code para o cliente escanear com o celular — ele cai direto na tela dele, já logado, sem
-        precisar digitar nada.
+        Mostre esse QR code para o cliente escanear com o celular — ele abre direto a tela de login/cadastro do
+        FIDELI+ no celular dele.
       </p>
 
       <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, padding: 40 }}>
